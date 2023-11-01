@@ -11,7 +11,7 @@ function previewElementOnBoard(event, currentElement, gameTable) {
         const element = document.querySelector(`.row-${x + i}.col-${y + j}`);
         if (element) {
           if (currentElement.shape[i][j] === 1) {
-            console.log(gameTable[x + i][y + j]);
+            //console.log(gameTable[x + i][y + j]);
             if (gameTable[x + i][y + j].type === "base") {
               element.style.opacity = 0.5;
               element.src = `images/${currentElement.type}_tile.svg`;
@@ -51,28 +51,37 @@ function addElementToBoard(event, currentElement, gameTable) {
     const y = parseInt(target.dataset.col);
     console.log(x, y);
     if (!isValidPlacement(currentElement, gameTable, x, y)) {
-      return;
+      return false;
     }
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        let cell = gameTable[x + i][y + j];
-        if (cell) {
-          if (currentElement.shape[i][j] === 1) {
-            cell.type = currentElement.type;
+        if (!(x + i > 10 || y + j > 10)) {
+          let cell = gameTable[x + i][y + j];
+          if (cell) {
+            if (currentElement.shape[i][j] === 1) {
+              cell.type = currentElement.type;
+            }
           }
         }
       }
     }
   }
+  return true;
 }
 
 function isValidPlacement(currentElement, gameTable, x, y) {
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      const cell = gameTable[x + i][y + j];
-      if (cell) {
-        if (currentElement.shape[i][j] === 1 && cell.type !== "base") {
-          return false;
+      if ((x + i > 10 || y + j > 10) && currentElement.shape[i][j] === 1) {
+        return false;
+      }
+
+      if (!(x + i > 10 || y + j > 10)) {
+        const cell = gameTable[x + i][y + j];
+        if (cell) {
+          if (currentElement.shape[i][j] === 1 && cell.type !== "base") {
+            return false;
+          }
         }
       }
     }

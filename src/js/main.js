@@ -112,7 +112,11 @@ class game {
     });
 
     gameTable.addEventListener("click", (event) => {
-      addElementToBoard(event, this.currentElement, this.gameTable);
+      let res = addElementToBoard(event, this.currentElement, this.gameTable);
+      if (res) {
+        this.getNextElement();
+        this.defineNextElement();
+      }
     });
   }
 
