@@ -1,4 +1,4 @@
-const missions = {
+export const missionsData = {
   basic: [
     {
       title: "Edge of the forest",
@@ -63,7 +63,7 @@ const missions = {
     },
   ],
 };
-const elements = [
+export const elementsData = [
   {
     time: 2,
     type: "water",
@@ -241,5 +241,3 @@ const elements = [
     mirrored: false,
   },
 ];
-
-export { missions, elements };
