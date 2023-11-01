@@ -1,11 +1,16 @@
 import { elementsData } from "./data.js";
 import { shuffle } from "./shuffleArray.js";
+import {
+  addElementToBoard,
+  deletePreviewElementFromBoard,
+  previewElementOnBoard,
+} from "./elementsFunctions.js";
 
 const gameTable = document.querySelector(".game-table");
 const elementDiv = document.querySelector(".element");
 const elementTimeDiv = document.querySelector(".element-time");
 
-//
+// action buttons
 
 const flipButton = document.querySelector(".flip-button");
 const rotateButton = document.querySelector(".rotate-button");
@@ -16,8 +21,6 @@ class Cell {
     this.y = y;
     this.type = type;
   }
-
-  // Add methods specific to a cell if needed
 }
 
 class game {
@@ -35,7 +38,7 @@ class game {
       }
     }
 
-    // Modify gameTable to reflect mountains
+    // projecting the mountains
     let mountains = [
       [2, 2],
       [4, 9],
@@ -56,8 +59,7 @@ class game {
   defineGameTable() {
     this.gameTable.forEach((row) => {
       row.forEach((cell) => {
-        // Use the 'type' property of the cell to determine the image UR
-        gameTable.innerHTML += `<img class="cell cursor-pointer row-${cell.x} col-${cell.y}" src="images/${cell.type}_tile.svg" data-row="${cell.x}" data-col="${cell.y} alt="${cell.type}"></img>`;
+        gameTable.innerHTML += `<img class="cell cursor-pointer row-${cell.x} col-${cell.y}" src="images/${cell.type}_tile.svg" alt="${cell.type}" data-row="${cell.x}" data-col="${cell.y}  ></img>`;
       });
     });
   }
@@ -106,7 +108,7 @@ class game {
     });
 
     gameTable.addEventListener("mouseout", (event) => {
-      deletePreviewElementFromBoard(event, this.currentElement);
+      deletePreviewElementFromBoard(event, this.currentElement, this.gameTable);
     });
 
     gameTable.addEventListener("click", (event) => {
@@ -121,7 +123,7 @@ class game {
     this.currentElement.shape.forEach((item) => {
       item.forEach((item) => {
         if (item === 1) {
-          itemsElements += `<img class="cell cursor-pointer" src="images/${this.currentElement.type}_tile.svg" alt="${this.currentElement.type}"></img>`;
+          itemsElements += `<img class="cell cursor-pointer" src="images/${this.currentElement.type}_tile.svg" alt="${this.currentElement.type}">`;
         } else {
           itemsElements += `<div class="cell"></div>`;
         }
@@ -129,74 +131,6 @@ class game {
     });
     elementDiv.innerHTML += `<div class="mission cursor-pointer flex flex-wrap gap-1 mb-3 w-40">${itemsElements}</div>`;
     elementTimeDiv.innerHTML += `${this.currentElement.time}`;
-  }
-}
-
-function previewElementOnBoard(event, currentElement, gameTable) {
-  const target = event.target;
-
-  if (target.classList.contains("cell")) {
-    const x = parseInt(target.dataset.row);
-    const y = parseInt(target.dataset.col);
-
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        //console.log(x + i, y + j);
-        const element = document.querySelector(`.row-${x + i}.col-${y + j}`);
-        if (element) {
-          if (currentElement.shape[i][j] === 1) {
-            console.log(gameTable[x + i][y + j]);
-            if (gameTable[x + i][y + j].type === "base") {
-              element.style.opacity = 0.5;
-              element.src = `images/${newGame.currentElement.type}_tile.svg`;
-            } else {
-              element.style.opacity = 0.75;
-              element.src = `images/wrong.svg`;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-function deletePreviewElementFromBoard(event, currentElement) {
-  const target = event.target;
-  if (target.classList.contains("cell")) {
-    const x = parseInt(target.dataset.row);
-    const y = parseInt(target.dataset.col);
-
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        const element = document.querySelector(`.row-${x + i}.col-${y + j}`);
-        if (element) {
-          element.style.opacity = 1;
-          element.src = `images/${
-            newGame.gameTable[x + i][y + j].type
-          }_tile.svg`;
-        }
-      }
-    }
-  }
-}
-
-function addElementToBoard(event, currentElement, gameTable) {
-  const target = event.target;
-  if (target.classList.contains("cell")) {
-    const x = parseInt(target.dataset.row);
-    const y = parseInt(target.dataset.col);
-    console.log(x, y);
-
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        let cell = gameTable[x + i][y + j];
-        if (cell) {
-          if (currentElement.shape[i][j] === 1) {
-            cell.type = currentElement.type;
-          }
-        }
-      }
-    }
   }
 }
 
