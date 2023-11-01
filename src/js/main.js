@@ -59,7 +59,7 @@ class game {
   defineGameTable() {
     this.gameTable.forEach((row) => {
       row.forEach((cell) => {
-        gameTable.innerHTML += `<img class="cell cursor-pointer row-${cell.x} col-${cell.y}" src="images/${cell.type}_tile.svg" alt="${cell.type}" data-row="${cell.x}" data-col="${cell.y}  ></img>`;
+        gameTable.innerHTML += `<img class="cell cursor-pointer row-${cell.x} col-${cell.y}" src="images/${cell.type}_tile.svg" data-row="${cell.x}" data-col="${cell.y}" alt="${cell.type}"></img>`;
       });
     });
   }
@@ -123,7 +123,7 @@ class game {
     this.currentElement.shape.forEach((item) => {
       item.forEach((item) => {
         if (item === 1) {
-          itemsElements += `<img class="cell cursor-pointer" src="images/${this.currentElement.type}_tile.svg" alt="${this.currentElement.type}">`;
+          itemsElements += `<img class="cell cursor-pointer" src="images/${this.currentElement.type}_tile.svg" alt="${this.currentElement.type}"></img>`;
         } else {
           itemsElements += `<div class="cell"></div>`;
         }
