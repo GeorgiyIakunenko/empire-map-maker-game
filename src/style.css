@@ -31,7 +31,45 @@
   background-color: #ede2b8;
 }
 
-.container {
+.mission {
+  background-color: #363636;
+}
+
+.element-box {
+  background-color: #1dc5c5;
+}
+
+.mission_description {
+  font-size: 10px;
+}
+
+.season {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.season.red {
+  background-color: #9d3636;
+}
+
+.season.blue {
+  background-color: #5252e1;
+}
+
+.season.green {
+  background-color: #297729;
+}
+
+.season.yellow {
+  background-color: #d2d233;
+  color: black;
+}
+
+.container-box {
   margin: 0 auto;
   max-width: 1230px;
   padding: 0 15px;

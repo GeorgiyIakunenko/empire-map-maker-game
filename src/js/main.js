@@ -1,19 +1,24 @@
-import { elementsData } from "./data.js";
-import { shuffle } from "./shuffleArray.js";
+import { elementsData, missionsData } from "./data.js";
+import { shuffle } from "./utils/shuffleArray.js";
 import {
   addElementToBoard,
   deletePreviewElementFromBoard,
   previewElementOnBoard,
 } from "./elementsFunctions.js";
 
+import { Missions } from "./missions.js";
+
 const gameTable = document.querySelector(".game-table");
 const elementDiv = document.querySelector(".element");
 const elementTimeDiv = document.querySelector(".element-time");
+const seasonsDiv = document.querySelector(".seasons");
+const currentSeason = document.querySelector(".current-season");
 
 // action buttons
 
 const flipButton = document.querySelector(".flip-button");
 const rotateButton = document.querySelector(".rotate-button");
+const elapsedTime = document.querySelector(".elapsed-time");
 
 class Cell {
   constructor(x, y, type) {
@@ -23,17 +28,29 @@ class Cell {
   }
 }
 
+class Season {
+  constructor(id, name, color, missionsLetters = ["A", "B"]) {
+    this.id = id;
+    this.name = name;
+    this.points = 0;
+    this.color = color;
+    this.missionsLatters = missionsLetters;
+  }
+}
+
 class game {
   gameTable;
   elements;
   currentElement;
+  currentSeason;
+  seasons;
+  timePoints;
 
   constructor(el) {
     this.gameTable = [];
     for (let i = 0; i < 11; i++) {
       this.gameTable.push([]);
       for (let j = 0; j < 11; j++) {
-        // Create instances of the Cell class for the game table
         this.gameTable[i].push(new Cell(i, j, "base"));
       }
     }
@@ -54,6 +71,14 @@ class game {
     });
 
     this.elements = el;
+    this.seasons = [
+      new Season(0, "spring", "green", ["A", "B"]),
+      new Season(1, "summer", "yellow", ["B", "C"]),
+      new Season(2, "autumn", "red", ["C", "D"]),
+      new Season(3, "winter", "blue", ["D", "A"]),
+    ];
+    this.currentSeason = this.seasons[0];
+    this.timePoints = 0;
   }
 
   defineGameTable() {
@@ -114,10 +139,26 @@ class game {
     gameTable.addEventListener("click", (event) => {
       let res = addElementToBoard(event, this.currentElement, this.gameTable);
       if (res) {
+        this.timePoints += this.currentElement.time;
+        elapsedTime.innerHTML = this.timePoints % 7;
         this.getNextElement();
         this.defineNextElement();
+        this.defineSeasons();
       }
     });
+  }
+
+  defineSeasons() {
+    let seasonsLayout = "";
+    const currentSeasonIndex = Math.floor(this.timePoints / 7) % 4;
+    console.log(currentSeasonIndex);
+    this.currentSeason = this.seasons[currentSeasonIndex];
+    this.seasons.forEach((season) => {
+      let border = this.currentSeason.name === season.name ? "border-4" : "";
+      seasonsLayout += `<div class="season rounded-xl p-4 w-28 h-28 flex flex-col ${border} ${season.color}"><div>${season.name}</div><div>${season.points} Points</div></div>`;
+    });
+    seasonsDiv.innerHTML = seasonsLayout;
+    currentSeason.innerHTML = this.currentSeason.name;
   }
 
   defineNextElement() {
@@ -133,13 +174,17 @@ class game {
         }
       });
     });
-    elementDiv.innerHTML += `<div class="mission cursor-pointer flex flex-wrap gap-1 mb-3 w-40">${itemsElements}</div>`;
+    elementDiv.innerHTML += `<div class="cursor-pointer flex flex-wrap gap-1 mb-3 w-40">${itemsElements}</div>`;
     elementTimeDiv.innerHTML += `${this.currentElement.time}`;
   }
 }
+
+let missions = new Missions(missionsData);
+missions.defineMission();
 
 const newGame = new game(shuffle(elementsData));
 newGame.defineGameTable();
 newGame.defineListeners();
 newGame.getNextElement();
 newGame.defineNextElement();
+newGame.defineSeasons();
