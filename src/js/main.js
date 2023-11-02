@@ -6,13 +6,15 @@ import {
   previewElementOnBoard,
 } from "./elementsFunctions.js";
 
-import { Missions } from "./missions.js";
+import { borderlandsMission } from "./missionClass.js";
 
 const gameTable = document.querySelector(".game-table");
 const elementDiv = document.querySelector(".element");
 const elementTimeDiv = document.querySelector(".element-time");
 const seasonsDiv = document.querySelector(".seasons");
 const currentSeason = document.querySelector(".current-season");
+const totalPointsDiv = document.querySelector(".total-points");
+const missionDiv = document.querySelector(".missions");
 
 // action buttons
 
@@ -40,14 +42,16 @@ class Season {
 
 class game {
   gameTable;
-  elements;
+  missions;
   currentElement;
+  elements;
   currentSeason;
   seasons;
   timePoints;
 
-  constructor(el) {
+  constructor(el, missions) {
     this.gameTable = [];
+    this.missions = missions;
     for (let i = 0; i < 11; i++) {
       this.gameTable.push([]);
       for (let j = 0; j < 11; j++) {
@@ -144,6 +148,7 @@ class game {
         this.getNextElement();
         this.defineNextElement();
         this.defineSeasons();
+        this.defineMissions();
       }
     });
   }
@@ -154,11 +159,17 @@ class game {
     console.log(currentSeasonIndex);
     this.currentSeason = this.seasons[currentSeasonIndex];
     this.seasons.forEach((season) => {
-      let border = this.currentSeason.name === season.name ? "border-4" : "";
-      seasonsLayout += `<div class="season rounded-xl p-4 w-28 h-28 flex flex-col ${border} ${season.color}"><div>${season.name}</div><div>${season.points} Points</div></div>`;
+      let border =
+        this.currentSeason.name === season.name ? "border-4 border-black" : "";
+      seasonsLayout += `<div class="season rounded-xl text-sm p-4 w-24 h-24 flex gap-2 flex-col ${border} ${season.color}"><div>${season.name}</div><div>${season.points} Points</div></div>`;
     });
     seasonsDiv.innerHTML = seasonsLayout;
-    currentSeason.innerHTML = this.currentSeason.name;
+    currentSeason.innerHTML =
+      this.currentSeason.name +
+      " (" +
+      this.currentSeason.missionsLatters.join(" ") +
+      ")";
+    totalPointsDiv.innerHTML = this.currentSeason.points;
   }
 
   defineNextElement() {
@@ -177,14 +188,46 @@ class game {
     elementDiv.innerHTML += `<div class="cursor-pointer flex flex-wrap gap-1 mb-3 w-40">${itemsElements}</div>`;
     elementTimeDiv.innerHTML += `${this.currentElement.time}`;
   }
+
+  defineMissions() {
+    let missionsElement = "";
+    this.missions.forEach((currentMission) => {
+      console.log(currentMission);
+      currentMission.evaluateMission(this.gameTable);
+      missionsElement += `<div
+              class="mission w-fit flex items-center gap-2 rounded-lg px-2 text-white"
+            >
+              <img
+                class="mission_img h-24 w-24"
+                src="images/missions/78.png"
+                alt="mission"
+              />
+              <div>
+                <h3 class="mission_title mb-4">${currentMission.title}</h3>
+                <p class="mission_description w-40 mb-3 ">
+                  ${currentMission.description}
+                </p>
+                <div class="flex text-sm justify-between pr-10">
+                  <div class="points">
+                    (<span class="points_value">${currentMission.points}</span>
+                    Points)
+                  </div>
+                  <div>
+                    <div class="mission_season_later  font-bold">A</div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+    });
+
+    missionDiv.innerHTML = missionsElement;
+  }
 }
 
-let missions = new Missions(missionsData);
-missions.defineMission();
-
-const newGame = new game(shuffle(elementsData));
+const newGame = new game(shuffle(elementsData), [borderlandsMission]);
 newGame.defineGameTable();
 newGame.defineListeners();
 newGame.getNextElement();
 newGame.defineNextElement();
 newGame.defineSeasons();
+newGame.defineMissions();
