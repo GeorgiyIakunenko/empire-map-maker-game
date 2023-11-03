@@ -3,6 +3,7 @@ import { EdgeOfTheForestMission } from "./edgeOfTheForestMission.js";
 import { SleepyValleyMission } from "./sleepyValleyMission.js";
 import { WateringPotatoMission } from "./wateringPotatoMission.js";
 import { SurroundedMountainMission } from "./surroundedMountainMission.js";
+import { TreeLineMission } from "./treeLineMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -34,9 +35,16 @@ export const waterPotatoMission = new WateringPotatoMission(
   "You get two points for each water field adjacent to your farm fields.",
 );
 
+export const treeLineMission = new TreeLineMission(
+  "Tree line",
+  "treeLine",
+  "You get two points for each of the fields in the longest vertically uninterrupted continuous forest. If there are two or more tree lines with the same longest length, only one counts.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
   sleepyValleyMission,
   waterPotatoMission,
+  treeLineMission,
 ];

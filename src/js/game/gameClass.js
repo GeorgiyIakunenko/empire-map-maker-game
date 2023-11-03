@@ -155,7 +155,13 @@ export class Game {
 
   restart() {
     this.initialize();
-    this.start();
+    this.defineGameTable();
+    // not needed, because listeners are defined
+    //this.defineListeners();
+    this.getNextElement();
+    this.defineNextElement();
+    this.defineSeasons();
+    this.defineMissions();
   }
 
   calculatePoints() {
