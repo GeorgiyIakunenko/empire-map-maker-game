@@ -39,6 +39,6 @@ The most serious consequence of a disciplinary offence is dismissal from the uni
 [x] Mission: Magicians' valley (1 point)
 [x] Mission: Empty site (1 point)
 [x] Mission: Terraced House (1 point) // Row of Houses
-[ ] Mission: Odd silos (1 point)
+[x] Mission: Odd silos (1 point)
 [ ] Mission: Rich countryside (1 point)
 [ ] Save: The game saves its state continuously to localStorage. When loading a page, if there is such a saved state, it is loaded from there, otherwise a new game is started. At the end of the game, the saved state is deleted (2 points).

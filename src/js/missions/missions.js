@@ -9,6 +9,7 @@ import { WealthyTownMission } from "./wealthyTownMission.js";
 import { MagiciansValleyMission } from "./magiciansValleyMission.js";
 import { EmptySiteMission } from "./emptySiteMission.js";
 import { RowOfHousesMission } from "./rowOfHousesMission.js";
+import { OddSilosMission } from "./oddSilosMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -76,6 +77,12 @@ export const rowOfHousesMission = new RowOfHousesMission(
   "For each field in the longest village fields that are horizontally uninterrupted and contiguous you will get two points.",
 );
 
+export const oddSilosMission = new OddSilosMission(
+  "Odd silos",
+  "oddSilos",
+  "For each of your odd numbered full columns you get 10 points.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
@@ -87,4 +94,5 @@ export const missionsDefined = [
   magiciansValleyMission,
   emptySiteMission,
   rowOfHousesMission,
+  oddSilosMission,
 ];
