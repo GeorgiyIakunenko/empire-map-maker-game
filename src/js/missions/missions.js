@@ -6,6 +6,7 @@ import { SurroundedMountainMission } from "./surroundedMountainMission.js";
 import { TreeLineMission } from "./treeLineMission.js";
 import { WateringCanalMission } from "./wateringCanalMission.js";
 import { WealthyTownMission } from "./wealthyTownMission.js";
+import { MagiciansValleyMission } from "./magiciansValleyMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -55,6 +56,12 @@ export const wealthyTownMission = new WealthyTownMission(
   "You get three points for each of your village fields adjacent to at least three different terrain types.",
 );
 
+export const magiciansValleyMission = new MagiciansValleyMission(
+  "Magicians valley",
+  "magiciansValley",
+  "You get three points for your water fields adjacent to your mountain fields.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
@@ -63,4 +70,5 @@ export const missionsDefined = [
   treeLineMission,
   waterCanalMission,
   wealthyTownMission,
+  magiciansValleyMission,
 ];
