@@ -7,6 +7,7 @@ import { TreeLineMission } from "./treeLineMission.js";
 import { WateringCanalMission } from "./wateringCanalMission.js";
 import { WealthyTownMission } from "./wealthyTownMission.js";
 import { MagiciansValleyMission } from "./magiciansValleyMission.js";
+import { EmptySiteMission } from "./emptySiteMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -62,6 +63,12 @@ export const magiciansValleyMission = new MagiciansValleyMission(
   "You get three points for your water fields adjacent to your mountain fields.",
 );
 
+export const emptySiteMission = new EmptySiteMission(
+  "Empty site",
+  "emptySite",
+  "You get two points for empty fields adjacent to your village fields.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
@@ -71,4 +78,5 @@ export const missionsDefined = [
   waterCanalMission,
   wealthyTownMission,
   magiciansValleyMission,
+  emptySiteMission,
 ];
