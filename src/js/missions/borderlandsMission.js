@@ -1,13 +1,4 @@
-class Mission {
-  constructor(id, title, description) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.points = 0;
-  }
-
-  evaluateMission(gameTable) {}
-}
+import { Mission } from "./missionClass.js";
 
 export class BorderlandsMission extends Mission {
   constructor(id, title, description) {
@@ -21,16 +12,15 @@ export class BorderlandsMission extends Mission {
       const isFullLine = gameTable[i].every((cell) => cell.type !== "base");
 
       if (isFullLine) {
-        points += 6; // Add 6 points for a full row
+        points += 6;
       }
     }
 
-    // Check columns
     for (let j = 0; j < gameTable[0].length; j++) {
       const isFullColumn = gameTable.every((row) => row[j].type !== "base");
 
       if (isFullColumn) {
-        points += 6; // Add 6 points for a full column
+        points += 6;
       }
     }
 
@@ -38,9 +28,3 @@ export class BorderlandsMission extends Mission {
     return points;
   }
 }
-
-export const borderlandsMission = new BorderlandsMission(
-  1,
-  "Borderlands",
-  "For each full row or column, you get six points.",
-);
