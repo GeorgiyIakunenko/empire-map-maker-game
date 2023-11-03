@@ -8,6 +8,7 @@ import { WateringCanalMission } from "./wateringCanalMission.js";
 import { WealthyTownMission } from "./wealthyTownMission.js";
 import { MagiciansValleyMission } from "./magiciansValleyMission.js";
 import { EmptySiteMission } from "./emptySiteMission.js";
+import { RowOfHousesMission } from "./rowOfHousesMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -69,6 +70,12 @@ export const emptySiteMission = new EmptySiteMission(
   "You get two points for empty fields adjacent to your village fields.",
 );
 
+export const rowOfHousesMission = new RowOfHousesMission(
+  "Row of houses",
+  "rowOfHouses",
+  "For each field in the longest village fields that are horizontally uninterrupted and contiguous you will get two points.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
@@ -79,4 +86,5 @@ export const missionsDefined = [
   wealthyTownMission,
   magiciansValleyMission,
   emptySiteMission,
+  rowOfHousesMission,
 ];
