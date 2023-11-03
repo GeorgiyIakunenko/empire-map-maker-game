@@ -2,6 +2,13 @@ import { BorderlandsMission } from "./borderlandsMission.js";
 import { EdgeOfTheForestMission } from "./edgeOfTheForestMission.js";
 import { SleepyValleyMission } from "./sleepyValleyMission.js";
 import { WateringPotatoMission } from "./wateringPotatoMission.js";
+import { SurroundedMountainMission } from "./surroundedMountainMission.js";
+
+export const surroundedMountainMission = new SurroundedMountainMission(
+  "Surrounded mountain",
+  "surroundedMountain",
+  "You get one point for each mountain field surrounded by four base fields.",
+);
 
 export const borderlandsMission = new BorderlandsMission(
   "Borderlands",

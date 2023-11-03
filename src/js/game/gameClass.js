@@ -7,7 +7,10 @@ import { createGameTable, getSeasons } from "./helpers.js";
 import { Element } from "../element/elementClass.js";
 import { shuffle } from "../utils/shuffleArray.js";
 import { elementsData } from "../data/elementsData.js";
-import { missionsDefined } from "../missions/missions.js";
+import {
+  missionsDefined,
+  surroundedMountainMission,
+} from "../missions/missions.js";
 
 const gameTable = document.querySelector(".game-table");
 const elementDiv = document.querySelector(".element");
@@ -19,6 +22,9 @@ const elapsedTime = document.querySelector(".elapsed-time");
 const missionDiv = document.querySelector(".missions");
 const modalFull = document.querySelector(".modal-full");
 const modalContent = document.querySelector(".modal-content");
+const surroundedMountainPointsDiv = document.querySelector(
+  ".surrounded-mountain-points",
+);
 
 // action buttons
 const closeModalBtn = document.querySelector(".close-modal-btn");
@@ -34,6 +40,7 @@ export class Game {
   seasons;
   timePoints;
   totalPoints;
+  surroundedMountainMission;
 
   constructor() {
     this.initialize();
@@ -48,6 +55,7 @@ export class Game {
     this.currentSeason = this.seasons[0];
     this.timePoints = 0;
     this.totalPoints = 0;
+    this.surroundedMountainMission = surroundedMountainMission;
   }
 
   defineGameTable() {
@@ -176,6 +184,12 @@ export class Game {
       missionsElement += currentMission.getLayout(this.currentSeason);
     });
     missionDiv.innerHTML = missionsElement;
+
+    // surrounded mountain mission evaluation
+
+    this.surroundedMountainMission.evaluateMission(this.gameTable);
+    surroundedMountainPointsDiv.innerHTML =
+      this.surroundedMountainMission.points;
   }
 
   start() {

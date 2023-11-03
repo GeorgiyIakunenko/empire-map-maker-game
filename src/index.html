@@ -16,12 +16,12 @@
     </header>
     <main class="bg-neutral-100">
       <div>
-        <div class="container-box flex items-center gap-3">
+        <div class="container-box flex items-start gap-3 xl:items-center">
           <div>
             <div class="game-table mx-auto"></div>
           </div>
           <div>
-            <div class="mb-3 flex gap-5">
+            <div class="mb-3 flex flex-col gap-5 xl:flex-row">
               <div class="element-box mb-2 h-fit w-fit rounded-lg p-4">
                 <h3 class="mb-3 text-2xl font-bold">Current element:</h3>
                 <div class="flex gap-3">
@@ -60,10 +60,19 @@
                 </div>
               </div>
             </div>
-            <div class="mb-3">
-              Elapsed time in current season
-              <span class="elapsed-time">0</span> / 7 :
+            <div class="mb-3 flex items-center gap-8">
+              <div>
+                Elapsed time in current season
+                <span class="elapsed-time font-bold">0</span> / 7 :
+              </div>
+
+              <div>
+                Surrounded mountain:
+                <span class="surrounded-mountain-points font-bold">0</span>
+                points
+              </div>
             </div>
+
             <div class="missions flex flex-wrap gap-2"></div>
           </div>
         </div>
