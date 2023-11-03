@@ -10,6 +10,7 @@ import { MagiciansValleyMission } from "./magiciansValleyMission.js";
 import { EmptySiteMission } from "./emptySiteMission.js";
 import { RowOfHousesMission } from "./rowOfHousesMission.js";
 import { OddSilosMission } from "./oddSilosMission.js";
+import { RichCountrysideMission } from "./richCountrysideMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -83,6 +84,12 @@ export const oddSilosMission = new OddSilosMission(
   "For each of your odd numbered full columns you get 10 points.",
 );
 
+export const richCountrysideMission = new RichCountrysideMission(
+  "Rich countryside",
+  "richCountryside",
+  "For each row with five different terrain types, you get four points.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
@@ -95,4 +102,5 @@ export const missionsDefined = [
   emptySiteMission,
   rowOfHousesMission,
   oddSilosMission,
+  richCountrysideMission,
 ];
