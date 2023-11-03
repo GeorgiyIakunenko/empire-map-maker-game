@@ -5,6 +5,9 @@ import {
 } from "../elementsFunctions.js";
 import { createGameTable, getSeasons } from "./helpers.js";
 import { Element } from "../element/elementClass.js";
+import { shuffle } from "../utils/shuffleArray.js";
+import { elementsData } from "../data/elementsData.js";
+import { missionsDefined } from "../missions/missions.js";
 
 const gameTable = document.querySelector(".game-table");
 const elementDiv = document.querySelector(".element");
@@ -12,13 +15,15 @@ const elementTimeDiv = document.querySelector(".element-time");
 const seasonsDiv = document.querySelector(".seasons");
 const currentSeason = document.querySelector(".current-season");
 const totalPointsDiv = document.querySelector(".total-points");
+const elapsedTime = document.querySelector(".elapsed-time");
 const missionDiv = document.querySelector(".missions");
+const modalFull = document.querySelector(".modal-full");
+const modalContent = document.querySelector(".modal-content");
 
 // action buttons
-
+const closeModalBtn = document.querySelector(".close-modal-btn");
 const flipButton = document.querySelector(".flip-button");
 const rotateButton = document.querySelector(".rotate-button");
-const elapsedTime = document.querySelector(".elapsed-time");
 
 export class Game {
   gameTable;
@@ -30,13 +35,15 @@ export class Game {
   timePoints;
   totalPoints;
 
-  constructor(el, missions) {
+  constructor() {
+    this.initialize();
+  }
+
+  initialize() {
     this.gameTable = [];
-    this.missions = missions;
-
+    this.missions = shuffle(missionsDefined).slice(0, 4);
     createGameTable(this.gameTable);
-
-    this.elements = el;
+    this.elements = shuffle(elementsData);
     this.seasons = getSeasons();
     this.currentSeason = this.seasons[0];
     this.timePoints = 0;
@@ -44,6 +51,7 @@ export class Game {
   }
 
   defineGameTable() {
+    gameTable.innerHTML = "";
     this.gameTable.forEach((row) => {
       row.forEach((cell) => {
         gameTable.innerHTML += cell.getLayout();
@@ -93,7 +101,20 @@ export class Game {
         this.defineNextElement();
         this.defineSeasons();
         this.defineMissions();
+        this.checkIsEnd();
       }
+    });
+
+    modalFull.addEventListener("click", (event) => {
+      if (event.target.classList.contains("modal-full")) {
+        modalFull.classList.add("hidden");
+        this.restart();
+      }
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+      modalFull.classList.add("hidden");
+      this.restart();
     });
   }
 
@@ -115,8 +136,14 @@ export class Game {
 
   checkIsEnd() {
     if (this.timePoints >= 28) {
-      return true;
+      modalContent.innerHTML = `Your score is ${this.totalPoints}`;
+      modalFull.classList.remove("hidden");
     }
+  }
+
+  restart() {
+    this.initialize();
+    this.start();
   }
 
   calculatePoints() {
