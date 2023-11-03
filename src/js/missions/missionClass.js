@@ -11,9 +11,14 @@ export class Mission {
     this.season = season;
   }
 
-  getLayout() {
+  getLayout(currentSeason) {
+    let border = "border-4 border-neutral-500";
+    if (currentSeason.missionsLatters.includes(this.season)) {
+      border = "border-4 border-green-500";
+    }
+
     return `<div
-              class="mission w-fit flex items-center gap-2 rounded-lg px-2 text-white"
+              class="mission ${border} w-fit flex items-center py-1  gap-2 rounded-lg px-2 text-white"
             >
               <img
                 class="mission_img h-24 w-24"
@@ -21,7 +26,7 @@ export class Mission {
                 alt="mission"
               />
               <div>
-                <h3 class="mission_title mb-4">${this.title}</h3>
+                <h3 class="mission_title mb-2">${this.title}</h3>
                 <p class="mission_description w-40 mb-3 ">
                   ${this.description}
                 </p>
