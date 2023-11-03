@@ -35,7 +35,7 @@ The most serious consequence of a disciplinary offence is dismissal from the uni
 ### Extra requirements (10 points)
 [x] Mission: Tree line (1 point)
 [x] Mission: Watering canal (1 point)
-[ ] Mission: Wealthy town(1 point)
+[x] Mission: Wealthy town(1 point)
 [ ] Mission: Magicians' valley (1 point)
 [ ] Mission: Empty site (1 point)
 [ ] Mission: Terraced House (1 point)

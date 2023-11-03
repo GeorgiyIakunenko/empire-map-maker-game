@@ -5,6 +5,7 @@ import { WateringPotatoMission } from "./wateringPotatoMission.js";
 import { SurroundedMountainMission } from "./surroundedMountainMission.js";
 import { TreeLineMission } from "./treeLineMission.js";
 import { WateringCanalMission } from "./wateringCanalMission.js";
+import { WealthyTownMission } from "./wealthyTownMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -48,6 +49,12 @@ export const waterCanalMission = new WateringCanalMission(
   "For each column of your map that has the same number of farm and water fields, you will receive four points. You must have at least one field of both terrain types in your column to score points.",
 );
 
+export const wealthyTownMission = new WealthyTownMission(
+  "Wealthy town",
+  "wealthyTown",
+  "You get three points for each of your village fields adjacent to at least three different terrain types.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
@@ -55,4 +62,5 @@ export const missionsDefined = [
   waterPotatoMission,
   treeLineMission,
   waterCanalMission,
+  wealthyTownMission,
 ];
