@@ -1,18 +1,23 @@
 export class Mission {
-  constructor(id, title, description) {
-    this.id = id;
+  constructor(title, img, description) {
+    this.season = "A";
+    this.img = `images/missions/${img}.png`;
     this.title = title;
     this.description = description;
     this.points = 0;
   }
 
-  getLayout(latter = "A") {
+  setSeason(season) {
+    this.season = season;
+  }
+
+  getLayout() {
     return `<div
               class="mission w-fit flex items-center gap-2 rounded-lg px-2 text-white"
             >
               <img
                 class="mission_img h-24 w-24"
-                src="images/missions/78.png"
+                src="${this.img}"
                 alt="mission"
               />
               <div>
@@ -26,7 +31,7 @@ export class Mission {
                     Points)
                   </div>
                   <div>
-                    <div class="mission_season_later  font-bold">${latter}</div>
+                    <div class="mission_season_later  font-bold">${this.season}</div>
                   </div>
                 </div>
               </div>

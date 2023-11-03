@@ -1,8 +1,8 @@
 import { Mission } from "./missionClass.js";
 
 export class BorderlandsMission extends Mission {
-  constructor(id, title, description) {
-    super(id, title, description);
+  constructor(title, img, description) {
+    super(title, img, description);
   }
 
   evaluateMission(gameTable) {

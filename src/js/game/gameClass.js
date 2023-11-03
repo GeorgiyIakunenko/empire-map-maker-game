@@ -104,18 +104,24 @@ export class Game {
     totalPointsDiv.innerHTML = this.currentSeason.points;
   }
 
+  checkIsEnd() {
+    if (this.timePoints >= 28) {
+      return true;
+    }
+  }
+
   defineNextElement() {
     elementDiv.innerHTML = "";
     elementTimeDiv.innerHTML = "";
     elementDiv.innerHTML += this.currentElement.getLayout();
     elementTimeDiv.innerHTML += `${this.currentElement.time}`;
   }
-  // todo define latter's for missions and highlight them when the season is appropriate
 
   defineMissions() {
     let missionsElement = "";
-    this.missions.forEach((currentMission) => {
+    this.missions.forEach((currentMission, index) => {
       console.log(currentMission);
+      currentMission.setSeason(this.seasons[index].missionsLatters[0]);
       currentMission.evaluateMission(this.gameTable);
       missionsElement += currentMission.getLayout();
     });
