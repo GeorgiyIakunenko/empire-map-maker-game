@@ -4,6 +4,7 @@ import { SleepyValleyMission } from "./sleepyValleyMission.js";
 import { WateringPotatoMission } from "./wateringPotatoMission.js";
 import { SurroundedMountainMission } from "./surroundedMountainMission.js";
 import { TreeLineMission } from "./treeLineMission.js";
+import { WateringCanalMission } from "./wateringCanalMission.js";
 
 export const surroundedMountainMission = new SurroundedMountainMission(
   "Surrounded mountain",
@@ -41,10 +42,17 @@ export const treeLineMission = new TreeLineMission(
   "You get two points for each of the fields in the longest vertically uninterrupted continuous forest. If there are two or more tree lines with the same longest length, only one counts.",
 );
 
+export const waterCanalMission = new WateringCanalMission(
+  "Watering canal",
+  "wateringCanal",
+  "For each column of your map that has the same number of farm and water fields, you will receive four points. You must have at least one field of both terrain types in your column to score points.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
   sleepyValleyMission,
   waterPotatoMission,
   treeLineMission,
+  waterCanalMission,
 ];
