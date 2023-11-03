@@ -3,10 +3,8 @@ import {
   deletePreviewElementFromBoard,
   previewElementOnBoard,
 } from "../elementsFunctions.js";
-import { Season } from "./seasonClass.js";
-import { Cell } from "./cellClass.js";
+import { createGameTable, getSeasons } from "./helpers.js";
 import { Element } from "../element/elementClass.js";
-import { mountainsData } from "../data/mountainsData.js";
 
 const gameTable = document.querySelector(".game-table");
 const elementDiv = document.querySelector(".element");
@@ -34,27 +32,11 @@ export class Game {
   constructor(el, missions) {
     this.gameTable = [];
     this.missions = missions;
-    for (let i = 0; i < 11; i++) {
-      this.gameTable.push([]);
-      for (let j = 0; j < 11; j++) {
-        this.gameTable[i].push(new Cell(i, j, "base"));
-      }
-    }
 
-    // projecting the mountains
-    mountainsData.forEach(([x, y]) => {
-      if (x >= 0 && x < 11 && y >= 0 && y < 11) {
-        this.gameTable[x - 1][y - 1] = new Cell(x - 1, y - 1, "mountain");
-      }
-    });
+    createGameTable(this.gameTable);
 
     this.elements = el;
-    this.seasons = [
-      new Season(0, "spring", "green", 0, ["A", "B"]),
-      new Season(1, "summer", "yellow", 0, ["B", "C"]),
-      new Season(2, "autumn", "red", 0, ["C", "D"]),
-      new Season(3, "winter", "blue", 0, ["D", "A"]),
-    ];
+    this.seasons = getSeasons();
     this.currentSeason = this.seasons[0];
     this.timePoints = 0;
   }
@@ -62,7 +44,7 @@ export class Game {
   defineGameTable() {
     this.gameTable.forEach((row) => {
       row.forEach((cell) => {
-        gameTable.innerHTML += `<img class="cell cursor-pointer row-${cell.x} col-${cell.y}" src="images/${cell.type}_tile.svg" data-row="${cell.x}" data-col="${cell.y}" alt="${cell.type}">`;
+        gameTable.innerHTML += cell.getLayout();
       });
     });
   }
@@ -113,15 +95,12 @@ export class Game {
   defineSeasons() {
     let seasonsLayout = "";
     const currentSeasonIndex = Math.floor(this.timePoints / 7) % 4;
-    console.log(currentSeasonIndex);
     this.currentSeason = this.seasons[currentSeasonIndex];
     this.seasons.forEach((season) => {
-      let border =
-        this.currentSeason.name === season.name ? "border-4 border-black" : "";
-      seasonsLayout += `<div class="season rounded-xl text-sm p-4 w-24 h-24 flex gap-2 flex-col ${border} ${season.color}"><div>${season.name}</div><div>${season.points} Points</div></div>`;
+      seasonsLayout += season.getLayout(this.currentSeason);
     });
     seasonsDiv.innerHTML = seasonsLayout;
-    currentSeason.innerHTML = this.currentSeason.getLayout();
+    currentSeason.innerHTML = this.currentSeason.getStringLayout();
     totalPointsDiv.innerHTML = this.currentSeason.points;
   }
 
@@ -131,7 +110,6 @@ export class Game {
     elementDiv.innerHTML += this.currentElement.getLayout();
     elementTimeDiv.innerHTML += `${this.currentElement.time}`;
   }
-
   // todo define latter's for missions and highlight them when the season is appropriate
 
   defineMissions() {
@@ -141,7 +119,15 @@ export class Game {
       currentMission.evaluateMission(this.gameTable);
       missionsElement += currentMission.getLayout();
     });
-
     missionDiv.innerHTML = missionsElement;
+  }
+
+  start() {
+    this.defineGameTable();
+    this.defineListeners();
+    this.getNextElement();
+    this.defineNextElement();
+    this.defineSeasons();
+    this.defineMissions();
   }
 }
