@@ -120,7 +120,7 @@ export class Game {
   defineMissions() {
     let missionsElement = "";
     this.missions.forEach((currentMission, index) => {
-      console.log(currentMission);
+      //console.log(currentMission);
       currentMission.setSeason(this.seasons[index].missionsLatters[0]);
       currentMission.evaluateMission(this.gameTable);
       missionsElement += currentMission.getLayout();

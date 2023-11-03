@@ -49,7 +49,7 @@ function addElementToBoard(event, currentElement, gameTable) {
   if (target.classList.contains("cell")) {
     const x = parseInt(target.dataset.row);
     const y = parseInt(target.dataset.col);
-    console.log(x, y);
+    //console.log(x, y);
     if (!isValidPlacement(currentElement, gameTable, x, y)) {
       return false;
     }

@@ -1,6 +1,7 @@
 import { BorderlandsMission } from "./borderlandsMission.js";
 import { EdgeOfTheForestMission } from "./edgeOfTheForestMission.js";
 import { SleepyValleyMission } from "./sleepyValleyMission.js";
+import { WateringPotatoMission } from "./wateringPotatoMission.js";
 
 export const borderlandsMission = new BorderlandsMission(
   "Borderlands",
@@ -20,8 +21,15 @@ export const sleepyValleyMission = new SleepyValleyMission(
   "For every row with three forest fields, you get four points.",
 );
 
+export const waterPotatoMission = new WateringPotatoMission(
+  "Watering potatoes",
+  "wateringPotatoes",
+  "You get two points for each water field adjacent to your farm fields.",
+);
+
 export const missionsDefined = [
   borderlandsMission,
   edgeForestMission,
   sleepyValleyMission,
+  waterPotatoMission,
 ];
