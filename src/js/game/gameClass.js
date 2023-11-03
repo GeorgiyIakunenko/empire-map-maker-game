@@ -121,7 +121,11 @@ export class Game {
   defineSeasons() {
     let seasonsLayout = "";
     const currentSeasonIndex = Math.floor(this.timePoints / 7) % 4;
-    if (currentSeasonIndex > this.currentSeason.id) {
+    if (
+      currentSeasonIndex > this.currentSeason.id ||
+      (currentSeasonIndex === 0 && this.currentSeason.id === 3)
+    ) {
+      // in case of new year (currentSeasonIndex === 0 && this.currentSeason.id === 3)
       // calculate points
       this.calculatePoints();
     }
